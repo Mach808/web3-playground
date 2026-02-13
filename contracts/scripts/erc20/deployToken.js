@@ -1,4 +1,6 @@
 const hre = require("hardhat");
+require("dotenv").config();
+const fs = require("fs");
 
 async function main() {
 
@@ -7,8 +9,12 @@ async function main() {
   const token = await Token.deploy();
 
   await token.waitForDeployment();
+  const address = await token.getAddress()
+  console.log("Token deployed to:", address);
 
-  console.log("Token deployed to:", await token.getAddress());
+  let env = fs.readFileSync(".env", "utf8");
+  env = env.replace(/CONTRACT_ADDRESS=.*/g, `CONTRACT_ADDRESS=${address}`);
+  fs.writeFileSync(".env", env);
 }
 
 main().catch((error) => {

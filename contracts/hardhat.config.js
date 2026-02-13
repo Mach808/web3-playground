@@ -1,8 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
-const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL || "";
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
+
 
 module.exports = {
   solidity: {
@@ -18,13 +17,14 @@ module.exports = {
   networks: {
     hardhat: {},
 
+
     localhost: {
       url: "http://127.0.0.1:8545",
     },
 
-    sepolia: {
-      url: SEPOLIA_RPC_URL,
-      accounts: PRIVATE_KEY !== "" ? [PRIVATE_KEY] : [],
+    Polygon: {
+      url:"https://polygon-amoy.infura.io/v3/b13d3499598148d1829fc6512f582095",
+      accounts: [process.env.PRIVATE_KEY]
     },
   },
 };

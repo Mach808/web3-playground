@@ -5,7 +5,7 @@ require("dotenv").config();
 async function main() {
 
     const nftAddress = process.env.NFT_CONTRACT_ADDRESS;
-    const receiver = process.env.ACCOUNT2;
+    const receiver = process.env.MACCOUNT1;
 
     const nft = await hre.ethers.getContractAt(
         "AchievementNFT",

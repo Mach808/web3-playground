@@ -4,7 +4,7 @@ const fs = require("fs");
 
 async function main() {
 
-    const baseURI = "http://127.0.0.1:5000/metadata/";
+    const baseURI = "ipfs://bd3961f8-4fdd-45b8-b465-90351e1a031a/";
 
     const NFT = await hre.ethers.getContractFactory("AchievementNFT");
 

@@ -27,4 +27,8 @@ contract AchievementNFT is ERC721, Ownable {
     function _baseURI() internal view override returns (string memory) {
         return baseURIValue;
     }
+
+    function setBaseURI(string memory newURI) public onlyOwner {
+        baseURIValue = newURI;
+    }
 }

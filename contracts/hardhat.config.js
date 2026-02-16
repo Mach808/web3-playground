@@ -23,7 +23,7 @@ module.exports = {
     },
 
     Polygon: {
-      url:"https://polygon-amoy.infura.io/v3/b13d3499598148d1829fc6512f582095",
+      url:process.env.AMOY_RPC_URL,
       accounts: [process.env.PRIVATE_KEY]
     },
   },

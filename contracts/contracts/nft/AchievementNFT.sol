@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract AchievementNFT is ERC721, Ownable {
+contract AchievementNFT is ERC721Burnable, Ownable {
 
     uint256 public nextTokenId;
     string private baseURIValue;
@@ -31,4 +31,10 @@ contract AchievementNFT is ERC721, Ownable {
     function setBaseURI(string memory newURI) public onlyOwner {
         baseURIValue = newURI;
     }
+
+    function burn(uint256 tokenId) public override {
+        require(ownerOf(tokenId) == msg.sender, "You are not the NFT owner");
+        super.burn(tokenId);
+    }
+
 }

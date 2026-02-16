@@ -170,6 +170,48 @@ function App() {
     }
   }
 
+  async function burnNFT(tokenId) {
+
+    if (!signer) {
+      alert("Connect wallet first");
+      return;
+    }
+
+    const confirmBurn = window.confirm(
+      `Are you sure you want to permanently burn NFT #${tokenId}?`
+    );
+
+    if (!confirmBurn) return;
+
+    try {
+      const contract = new ethers.Contract(
+        ERC721_ADDRESS,
+        erc721Abi.abi,
+        signer
+      );
+
+      alert("Confirm burn in MetaMask...");
+
+      const tx = await contract.burn(tokenId);
+      await tx.wait();
+
+      alert("NFT burned successfully 🔥");
+
+      // reload NFTs from blockchain
+      await loadNFTs(provider, account);
+
+    } catch (err) {
+      console.error(err);
+
+      if (err.reason) {
+        alert(err.reason);
+      } else {
+        alert("Burn failed");
+      }
+    }
+  }
+
+
   async function approveAll() {
 
     const operator = prompt("Enter operator address:");
@@ -247,6 +289,21 @@ function App() {
                 >
                   Transfer NFT
                 </button>
+                <button
+                  onClick={() => burnNFT(nft.id)}
+                  style={{
+                    marginTop: "6px",
+                    padding: "6px 10px",
+                    cursor: "pointer",
+                    backgroundColor: "#ff4d4f",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px"
+                  }}
+                >
+                  Burn NFT 🔥
+                </button>
+
 
               </div>
             ))}
